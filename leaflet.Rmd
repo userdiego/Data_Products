@@ -1,0 +1,25 @@
+---
+title: "Argentine Population"
+author: "Diego Costa"
+date: "June 23rd, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+```
+
+## Argentine cities and their population
+###This map shows cities from Argentina and weighted population.
+
+```{r }
+library(leaflet)
+Sys.time()
+data <- read.csv("https://simplemaps.com/static/data/country-cities/ar/ar.csv")
+popUp <- data$population
+data %>%
+        leaflet() %>%
+        addTiles() %>%
+        addCircles(weight = 1, radius = sqrt(data$population) * 30) %>%
+        addMarkers(popup = popUp)
+```
